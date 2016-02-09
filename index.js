@@ -1,1 +1,1 @@
-module.exports = require('./src/dens-js');
+module.exports = require('./src/des-js');

@@ -9,8 +9,8 @@ module.exports = function(grunt) {
       },
 
       build: {
-        src: 'src/dens-js.js',
-        dest: 'dist/dens-js.min.js'
+        src: 'src/des-js.js',
+        dest: 'dist/des-js.min.js'
       }
     }
   });
