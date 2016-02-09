@@ -1,0 +1,19 @@
+{
+  "name": "dens-js",
+  "description" : "Javascript differential equation numerical solvers",
+  "author" : "Drew Miley <dmiley@scottlogic.co.uk>",
+  "version": "0.0.0",
+  "license" : "MIT",
+  "repository": "djmiley/dens-js",
+  "keywords" : [
+        "numerical",
+        "solution",
+        "differential",
+        "equation"
+  ],
+  "devDependencies": {
+    "d3fc": "~5.3.0",
+	  "grunt": "~0.4.1",
+	  "grunt-contrib-uglify": "~0.2.2"
+  }
+}
