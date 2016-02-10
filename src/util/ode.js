@@ -3,8 +3,12 @@
 
     des.util.ode = function() {
 
-        function ode() {
+    	var linear = true;
+    	var coefficients = [0];
+    	var inhomogeneity = d3.functor(0);
 
+        function ode() {
+        	//what does this return?
         }
 
         ode.linear = function(set) {

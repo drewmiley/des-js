@@ -3,6 +3,12 @@
 
     des.onestep.euler = function() {
 
+    	var y0 = [0];
+    	var yDash0 = [0];
+    	var xDomain = [0, 1];
+    	var h = 0.01;
+    	var ode = des.util.ode();
+
         function euler() {
         	// do calculation in here
         }

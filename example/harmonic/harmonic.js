@@ -40,7 +40,7 @@
     function calculateOnestepEulerSolution(xDomain, h) {
         // var harmonicEquation = des.util.ode()
         //     .linear(true)
-        //     .coefficients([1, 0, -1])
+        //     .coefficients([-1, 0, 1])
         //     .inhomogeneity(0);
         // var onestepEulerSolver = des.onestep.euler()
         //     .y0(0)
