@@ -10,7 +10,23 @@
     	var ode = des.util.ode();
 
         function euler() {
-        	// do calculation in here
+        	var solution = [des.util.coordinatePair(xDomain[0], y0)];
+        	var currentY = y0;
+        	var iterations = (xDomain[1] - xDomain[0]) / h;
+
+        	var currentYDash = [1];
+
+        	var nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
+        	solution.push(des.util.coordinatePair(xDomain[0] + h, nextY));
+
+        	for (var i = 1; i < iterations; i++) {
+        		currentY = nextY;
+        		currentYDash = [1];
+
+        		nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
+        		solution.push(des.util.coordinatePair(xDomain[0] + (i + 1) * h, nextY));
+        	}
+        	return solution;
         }
 
         euler.y0 = function(set) {

@@ -38,19 +38,24 @@
     };
 
     function calculateOnestepEulerSolution(xDomain, h) {
-        // var harmonicEquation = des.util.ode()
-        //     .linear(true)
-        //     .coefficients([-1, 0, 1])
-        //     .inhomogeneity(0);
-        // var onestepEulerSolver = des.onestep.euler()
-        //     .y0(0)
-        //     .yDash0(1)
-        //     .xDomain(xDomain)
-        //     .h(h)
-        //     .ode(harmonicEquation);
-        // var onestepEulerSolution = onestepEulerSolver();
-        // return onestepEulerSolution;
-        return calculateSinData(xDomain, h);
+        var harmonicEquation = des.util.ode()
+            .linear(true)
+            .coefficients([-1, 0, 1])
+            .inhomogeneity(0);
+        var onestepEulerSolver = des.onestep.euler()
+            .y0(0)
+            .yDash0(1)
+            .xDomain(xDomain)
+            .h(h)
+            .ode(harmonicEquation);
+        var onestepEulerSolution = onestepEulerSolver();
+        return onestepEulerSolution.map(function(iteration) {
+            return {
+                x: iteration.x,
+                y: iteration.y[0]
+            };
+        });
+        // return calculateSinData(xDomain, h);
     };
 
     function renderSinChart(xDomain, h) {
