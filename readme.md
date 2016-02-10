@@ -4,7 +4,7 @@ des-js is a javascript library containing differential equation solvers. These s
 
 ## Examples
 
-An example comparing solutions of the harmonic equation is currently in progress
+An example comparing solutions of the exponential equation is currently in progress
 
 ## Solvers
 
