@@ -1,29 +1,19 @@
 (function(d3, fc, des) {
     'use strict';
 
-    var sinData = d3.range(50).map(function(d) {
-        return {
-            x: d,
-            y: Math.sin(d)
-        };
-    });
+    var h = 0.01;
+    var xDomain = [0, 50];
 
-    // create a chart
-    var sinChart = fc.chart.cartesian(
-                  d3.scale.linear(),
-                  d3.scale.linear())
-              .yDomain(fc.util.extent().pad(0.2).fields(["y"])(sinData))
-              .yLabel("Sine")
-              .yNice()
-              .yOrient("left")
-              .xDomain(fc.util.extent().fields("x")(sinData))
-              .xLabel("Time")
-              .xBaseline(0)
-              .chartLabel("Sine Chart")
-              .margin({left: 50, bottom: 20, top: 30});
-
+    var basicChart = fc.chart.cartesian(d3.scale.linear(), d3.scale.linear())
+        .yLabel("y")
+        .yNice()
+        .yOrient("left")
+        .xLabel("x")
+        .xBaseline(0)
+        .xNice()
+        .margin({left: 50, top: 30});
     // create a pair of series and some gridlines
-    var sinLine = fc.series.line()
+    var line = fc.series.line()
       .xValue(function(d) { return d.x; })
       .yValue(function(d) { return d.y; });
 
@@ -31,13 +21,37 @@
 
     // combine using a multi-series
     var multi = fc.series.multi()
-      .series([gridlines, sinLine]);
+      .series([gridlines, line]);
 
-    sinChart.plotArea(multi);
+    function calculateSinData(xDomain, h) {
+        var xRange = xDomain[1] - xDomain[0];
+        var sinData = d3.range(xRange / h).map(function(d) {
+            return {
+                x: xDomain[0] + h * d,
+                y: Math.sin(xDomain[0] + h * d)
+            };
+        });
+        return sinData;
+    };
 
-    // render
-    d3.select("#sin-chart")
-        .datum(sinData)
-        .call(sinChart);
+    function renderSinChart(xDomain, h) {
+        var sinChart = basicChart
+            .chartLabel("Sin(x)")
+            .xDomain(fc.util.extent().fields("x")(calculateSinData(xDomain, h)))
+            .yDomain(fc.util.extent().fields("y")(calculateSinData(xDomain, h)));
+
+        sinChart.plotArea(multi);
+
+        // render
+        d3.select("#sin-chart")
+            .datum(calculateSinData(xDomain, h))
+            .call(sinChart);
+    };
+
+    function render() {
+        renderSinChart(xDomain, h);
+    };
+
+    render();
 
 })(d3, fc, des);
