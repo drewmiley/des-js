@@ -8,5 +8,6 @@
     /* jshint ignore:end */
 
     global.des = {
+        onestep: {}
     };
 })();
