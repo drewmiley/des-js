@@ -8,6 +8,7 @@
     /* jshint ignore:end */
 
     global.des = {
+        form: {},
         onestep: {},
         util: {}
     };

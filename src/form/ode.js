@@ -1,7 +1,7 @@
 (function(d3, des) {
     'use strict';
 
-    des.util.ode = function() {
+    des.form.ode = function() {
 
         // Set initial ODE to y = 0;
         var linear = true;
