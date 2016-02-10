@@ -11,10 +11,10 @@
         function ode(x, yValues) {
             if (yValues.length === 1) {
                 if (linear) {
-                    // var yDashMultiplier = coefficients[1];
-                    // var yMultiplier = coefficients[0];
-                    // var inhomogeneity = inhomogeneity;
-                    return [1];
+                    var inhomogeneityValues = inhomogeneity.map(function(d) { return d(x); });
+                    return [des.util.arraySum(yValues.map(function(d) { return d * coefficients[0]; }),
+                        inhomogeneityValues)
+                            .map(function(d) { return -d / coefficients[1]; })];
                 } else {
                     // Not implemented at the moment
                     return [1];
