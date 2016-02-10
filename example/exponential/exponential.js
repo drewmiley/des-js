@@ -55,7 +55,6 @@
                 y: iteration.y[0]
             };
         });
-        // return calculateExpData(xDomain, h);
     };
 
     function renderExpChart(xDomain, h) {

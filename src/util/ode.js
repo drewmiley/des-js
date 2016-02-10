@@ -8,36 +8,21 @@
         var coefficients = [1];
         var inhomogeneity = d3.functor(0);
 
-        function ode(x, yValues) {
-            // Linear first check
-            // Desired index differential to find as argument
-            // Want to do for arbitrary numbers of yValues etc.
+        function ode(x, yValues, n) {
             if (linear) {
-                if (yValues.length === 1) {
-                    var fX = inhomogeneity.map(function(d) { return d(x); });
-                    return [des.util.arraySum(yValues.map(function(d) { return d * coefficients[0]; }), fX)
-                            .map(function(d) { return -d / coefficients[1]; })];
-                } else {
-                    // Not implemented, to implement next;
-                    return [1];
+                var fX = inhomogeneity.map(function(d) { return d(x); });
+                var arraySum = fX;
+                for (var i = 0; i < yValues.length; i++) {
+                    if (i !== n) {
+                        arraySum = des.util.arraySum(arraySum,
+                            yValues[i].map(function(d) { return d * coefficients[i]; }));
+                    }
                 }
+                return arraySum.map(function(d) { return -d / coefficients[n]; });
             } else {
                 // Might be a while;
                 return [1];
             }
-            // if (yValues.length === 1) {
-            //     if (linear) {
-            //         var fX = inhomogeneity.map(function(d) { return d(x); });
-            //         return [des.util.arraySum(yValues.map(function(d) { return d * coefficients[0]; }), fX)
-            //                 .map(function(d) { return -d / coefficients[1]; })];
-            //     } else {
-            //         // Not implemented at the moment
-            //         return [1];
-            //     }
-            // } else {
-            //     // Not implemented at the moment
-            //     return [1];
-            // }
         }
 
         ode.linear = function(set) {

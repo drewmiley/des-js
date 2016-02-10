@@ -7,22 +7,23 @@
         var yDash0 = [0];
         var xDomain = [0, 1];
         var h = 0.01;
-        // Default ODE what can euler be used to solve?
-        var ode = des.util.ode();
+        // Default ODE is y' = 0
+        var ode = des.util.ode()
+            .coefficients([0, 1]);
 
         function euler() {
             var solution = [des.util.coordinatePair(xDomain[0], y0)];
             var currentY = y0;
             var iterations = (xDomain[1] - xDomain[0]) / h;
 
-            var currentYDash = ode(xDomain[0], [currentY]);
+            var currentYDash = ode(xDomain[0], [y0, yDash0], 1);
 
             var nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
             solution.push(des.util.coordinatePair(xDomain[0] + h, nextY));
 
             for (var i = 1; i < iterations; i++) {
                 currentY = nextY;
-                currentYDash = ode(xDomain[0] + i * h, [currentY]);
+                currentYDash = ode(xDomain[0] + i * h, [currentY, currentYDash], 1);
 
                 nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
                 solution.push(des.util.coordinatePair(xDomain[0] + (i + 1) * h, nextY));
