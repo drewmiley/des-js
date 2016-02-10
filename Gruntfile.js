@@ -93,6 +93,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['build']);
 
-    grunt.registerTask('build', ['concat:production', 'uglify:components']);
+    grunt.registerTask('build', ['jshint:failOnError', 'jscs:failOnError', 'concat:production', 'uglify:components']);
 
 };

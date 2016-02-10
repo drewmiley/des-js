@@ -5,6 +5,6 @@
         return {
         	x: x,
         	y: y
-        }
+        };
     };
 })(des);

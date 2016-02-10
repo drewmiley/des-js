@@ -9,8 +9,11 @@
     	var inhomogeneity = d3.functor(0);
 
         function ode(x, yValues) {
-        	if (yValues.length = 1) {
+        	if (yValues.length === 1) {
         		if (linear) {
+        			// var yDashMultiplier = coefficients[1];
+        			// var yMultiplier = coefficients[0];
+        			// var inhomogeneity = inhomogeneity;
         			return [1];
         		} else {
         			// Not implemented at the moment
@@ -32,7 +35,7 @@
 
         ode.coefficients = function(set) {
             if (!arguments.length) {
-                return h;
+                return coefficients;
             }
             if (Array.isArray(set)) {
             	coefficients = set;
@@ -46,7 +49,14 @@
             if (!arguments.length) {
                 return ode;
             }
-            inhomogeneity = d3.functor(set);
+            if (Array.isArray(set)) {
+            	inhomogeneity = [];
+            	for (var i = 0; i < set.length; i++) {
+            		inhomogeneity.push(d3.functor(set[i]));
+            	}
+            } else {
+            	inhomogeneity = [d3.functor(set)];
+            }
             return ode;
         };
 

@@ -5,6 +5,7 @@
     "forin": true,
     "immed": true,
     "latedef": true,
+    "loopfunc": true,
     "newcap": true,
     "noarg": true,
     "strict": true,
@@ -19,6 +20,6 @@
     "globals": {
         "d3": false,
         "fc": false,
-        "sc": false
+        "des": false
     }
 }
