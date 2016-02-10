@@ -12,6 +12,7 @@ module.exports = function(grunt) {
             ],
             srcJsFiles: [
                 'src/des.js',
+                'src/util/**/*.js',
                 'src/onestep/**/*.js'
             ],
             ourJsFiles: [
