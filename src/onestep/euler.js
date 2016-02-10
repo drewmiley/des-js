@@ -3,30 +3,30 @@
 
     des.onestep.euler = function() {
 
-    	var y0 = [0];
-    	var yDash0 = [0];
-    	var xDomain = [0, 1];
-    	var h = 0.01;
-    	var ode = des.util.ode();
+        var y0 = [0];
+        var yDash0 = [0];
+        var xDomain = [0, 1];
+        var h = 0.01;
+        var ode = des.util.ode();
 
         function euler() {
-        	var solution = [des.util.coordinatePair(xDomain[0], y0)];
-        	var currentY = y0;
-        	var iterations = (xDomain[1] - xDomain[0]) / h;
+            var solution = [des.util.coordinatePair(xDomain[0], y0)];
+            var currentY = y0;
+            var iterations = (xDomain[1] - xDomain[0]) / h;
 
-        	var currentYDash = ode(xDomain[0], [currentY]);
+            var currentYDash = ode(xDomain[0], [currentY]);
 
-        	var nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
-        	solution.push(des.util.coordinatePair(xDomain[0] + h, nextY));
+            var nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
+            solution.push(des.util.coordinatePair(xDomain[0] + h, nextY));
 
-        	for (var i = 1; i < iterations; i++) {
-        		currentY = nextY;
-        		currentYDash = ode(xDomain[0] + i * h, [currentY]);
+            for (var i = 1; i < iterations; i++) {
+                currentY = nextY;
+                currentYDash = ode(xDomain[0] + i * h, [currentY]);
 
-        		nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
-        		solution.push(des.util.coordinatePair(xDomain[0] + (i + 1) * h, nextY));
-        	}
-        	return solution;
+                nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
+                solution.push(des.util.coordinatePair(xDomain[0] + (i + 1) * h, nextY));
+            }
+            return solution;
         }
 
         euler.y0 = function(set) {
@@ -34,10 +34,10 @@
                 return y0;
             }
             if (Array.isArray(set)) {
-            	y0 = set;
-        	} else {
-        		y0 = [set];
-        	}
+                y0 = set;
+            } else {
+                y0 = [set];
+            }
             return euler;
         };
 
@@ -46,10 +46,10 @@
                 return yDash0;
             }
             if (Array.isArray(set)) {
-            	yDash0 = set;
-        	} else {
-        		yDash0 = [set];
-        	}
+                yDash0 = set;
+            } else {
+                yDash0 = [set];
+            }
             return euler;
         };
 

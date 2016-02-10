@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         uglify: {
             components: {
                 files: {
-                    'dist/des-js.min.js': ['dist/des-js.js'],
+                    'dist/des-js.min.js': ['dist/des-js.js']
                 }
             }
         },

@@ -3,8 +3,8 @@
 
     des.util.coordinatePair = function(x, y) {
         return {
-        	x: x,
-        	y: y
+            x: x,
+            y: y
         };
     };
 })(des);
