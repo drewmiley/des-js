@@ -11,7 +11,10 @@
         .xLabel("x")
         .xBaseline(0)
         .xNice()
-        .margin({left: 50, top: 30});
+        .margin({left: 50,
+            top: 10,
+            right: 20,
+            bottom: 10});
     // create a pair of series and some gridlines
     var line = fc.series.line()
       .xValue(function(d) { return d.x; })
@@ -38,7 +41,7 @@
         var sinChart = basicChart
             .chartLabel("Sin(x)")
             .xDomain(fc.util.extent().fields("x")(calculateSinData(xDomain, h)))
-            .yDomain(fc.util.extent().fields("y")(calculateSinData(xDomain, h)));
+            .yDomain(fc.util.extent().pad(0.1).fields("y")(calculateSinData(xDomain, h)));
 
         sinChart.plotArea(multi);
 
