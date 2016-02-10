@@ -2,7 +2,7 @@
     'use strict';
 
     var h = 0.01;
-    var xDomain = [0, 50];
+    var xDomain = [0, 10];
 
     var basicChart = fc.chart.cartesian(d3.scale.linear(), d3.scale.linear())
         .yLabel("y")
@@ -12,9 +12,9 @@
         .xBaseline(0)
         .xNice()
         .margin({left: 50,
-            top: 10,
+            top: 30,
             right: 20,
-            bottom: 10});
+            bottom: 30});
     // create a pair of series and some gridlines
     var line = fc.series.line()
       .xValue(function(d) { return d.x; })
@@ -22,32 +22,32 @@
 
     var gridlines = fc.annotation.gridline();
 
-    // combine using a multi-series
+    // combine uexpg a multi-series
     var multi = fc.series.multi()
       .series([gridlines, line]);
 
-    function calculateSinData(xDomain, h) {
+    function calculateExpData(xDomain, h) {
         var xRange = xDomain[1] - xDomain[0];
-        var sinData = d3.range(xRange / h).map(function(d) {
+        var expData = d3.range(xRange / h).map(function(d) {
             return {
                 x: xDomain[0] + h * d,
-                y: Math.sin(xDomain[0] + h * d)
+                y: Math.exp(xDomain[0] + h * d)
             };
         });
-        return sinData;
+        return expData;
     };
 
     function calculateOnestepEulerSolution(xDomain, h) {
-        var harmonicEquation = des.util.ode()
+        var expODE = des.util.ode()
             .linear(true)
-            .coefficients([-1, 0, 1])
+            .coefficients([-1, 1])
             .inhomogeneity(0);
         var onestepEulerSolver = des.onestep.euler()
-            .y0(0)
+            .y0(1)
             .yDash0(1)
             .xDomain(xDomain)
             .h(h)
-            .ode(harmonicEquation);
+            .ode(expODE);
         var onestepEulerSolution = onestepEulerSolver();
         return onestepEulerSolution.map(function(iteration) {
             return {
@@ -55,22 +55,22 @@
                 y: iteration.y[0]
             };
         });
-        // return calculateSinData(xDomain, h);
+        // return calculateExpData(xDomain, h);
     };
 
-    function renderSinChart(xDomain, h) {
-        var sinData = calculateSinData(xDomain, h);
-        var sinChart = basicChart
-            .chartLabel("Sin(x)")
-            .xDomain(fc.util.extent().fields("x")(sinData))
-            .yDomain(fc.util.extent().pad(0.1).fields("y")(sinData));
+    function renderExpChart(xDomain, h) {
+        var expData = calculateExpData(xDomain, h);
+        var expChart = basicChart
+            .chartLabel("Exp(x)")
+            .xDomain(fc.util.extent().fields("x")(expData))
+            .yDomain(fc.util.extent().pad(0.1).fields("y")(expData));
 
-        sinChart.plotArea(multi);
+        expChart.plotArea(multi);
 
         // render
-        d3.select("#sin-chart")
-            .datum(sinData)
-            .call(sinChart);
+        d3.select("#exp-chart")
+            .datum(expData)
+            .call(expChart);
     };
 
     function renderOnestepEulerChart(xDomain, h) {
@@ -89,7 +89,7 @@
     };
 
     function render() {
-        renderSinChart(xDomain, h);
+        renderExpChart(xDomain, h);
         renderOnestepEulerChart(xDomain, h);
     };
 

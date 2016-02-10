@@ -14,14 +14,14 @@
         	var currentY = y0;
         	var iterations = (xDomain[1] - xDomain[0]) / h;
 
-        	var currentYDash = [1];
+        	var currentYDash = ode(xDomain[0], [currentY]);
 
         	var nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
         	solution.push(des.util.coordinatePair(xDomain[0] + h, nextY));
 
         	for (var i = 1; i < iterations; i++) {
         		currentY = nextY;
-        		currentYDash = [1];
+        		currentYDash = ode(xDomain[0] + i * h, [currentY]);
 
         		nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
         		solution.push(des.util.coordinatePair(xDomain[0] + (i + 1) * h, nextY));
