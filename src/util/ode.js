@@ -12,19 +12,32 @@
             // Linear first check
             // Desired index differential to find as argument
             // Want to do for arbitrary numbers of yValues etc.
-            if (yValues.length === 1) {
-                if (linear) {
+            if (linear) {
+                if (yValues.length === 1) {
                     var fX = inhomogeneity.map(function(d) { return d(x); });
                     return [des.util.arraySum(yValues.map(function(d) { return d * coefficients[0]; }), fX)
                             .map(function(d) { return -d / coefficients[1]; })];
                 } else {
-                    // Not implemented at the moment
+                    // Not implemented, to implement next;
                     return [1];
                 }
             } else {
-                // Not implemented at the moment
+                // Might be a while;
                 return [1];
             }
+            // if (yValues.length === 1) {
+            //     if (linear) {
+            //         var fX = inhomogeneity.map(function(d) { return d(x); });
+            //         return [des.util.arraySum(yValues.map(function(d) { return d * coefficients[0]; }), fX)
+            //                 .map(function(d) { return -d / coefficients[1]; })];
+            //     } else {
+            //         // Not implemented at the moment
+            //         return [1];
+            //     }
+            // } else {
+            //     // Not implemented at the moment
+            //     return [1];
+            // }
         }
 
         ode.linear = function(set) {
