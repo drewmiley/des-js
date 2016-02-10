@@ -37,22 +37,52 @@
         return sinData;
     };
 
+    function calculateOnestepEulerSolution(xDomain, h) {
+        // var diffEq = null;
+        // var onestepEulerSolver = des.onestep.euler()
+        //     .y0(0)
+        //     .yDash0(1)
+        //     .xDomain(xDomain)
+        //     .h(h)
+        //     .diffEq(diffEq);
+        // var onestepEulerSolution = onestepEulerSolver();
+        // return onestepEulerSolution;
+        return calculateSinData(xDomain, h);
+    };
+
     function renderSinChart(xDomain, h) {
+        var sinData = calculateSinData(xDomain, h);
         var sinChart = basicChart
             .chartLabel("Sin(x)")
-            .xDomain(fc.util.extent().fields("x")(calculateSinData(xDomain, h)))
-            .yDomain(fc.util.extent().pad(0.1).fields("y")(calculateSinData(xDomain, h)));
+            .xDomain(fc.util.extent().fields("x")(sinData))
+            .yDomain(fc.util.extent().pad(0.1).fields("y")(sinData));
 
         sinChart.plotArea(multi);
 
         // render
         d3.select("#sin-chart")
-            .datum(calculateSinData(xDomain, h))
+            .datum(sinData)
             .call(sinChart);
+    };
+
+    function renderOnestepEulerChart(xDomain, h) {
+        var onestepEulerSolution = calculateOnestepEulerSolution(xDomain, h);
+        var onestepEulerSolutionChart = basicChart
+            .chartLabel("Onestep Euler solution")
+            .xDomain(fc.util.extent().fields("x")(onestepEulerSolution))
+            .yDomain(fc.util.extent().pad(0.1).fields("y")(onestepEulerSolution));
+
+        onestepEulerSolutionChart.plotArea(multi);
+
+        // render
+        d3.select("#onestep-euler-chart")
+            .datum(onestepEulerSolution)
+            .call(onestepEulerSolutionChart);
     };
 
     function render() {
         renderSinChart(xDomain, h);
+        renderOnestepEulerChart(xDomain, h);
     };
 
     render();
