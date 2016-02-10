@@ -58,17 +58,25 @@ module.exports = function(grunt) {
             }
         },
 
+        uglify: {
+            components: {
+                files: {
+                    'dist/des-js.min.js': ['dist/des-js.js'],
+                }
+            }
+        },
+
         concat: {
             development: {
                 src: ['<%= meta.srcJsFiles %>'],
-                dest: 'dist/des-js.min.js',
+                dest: 'dist/des-js.js',
                 options: {
                     sourceMap: true
                 }
             },
             production: {
                 src: ['<%= meta.srcJsFiles %>'],
-                dest: 'dist/des-js.min.js',
+                dest: 'dist/des-js.js',
                 options: {
                     sourceMap: false
                 }
@@ -83,6 +91,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['build']);
 
-    grunt.registerTask('build', ['concat:production']);
+    grunt.registerTask('build', ['concat:production', 'uglify:components']);
 
 };
