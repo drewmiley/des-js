@@ -7,6 +7,7 @@
         var yDash0 = [0];
         var xDomain = [0, 1];
         var h = 0.01;
+        // Default ODE what can euler be used to solve?
         var ode = des.util.ode();
 
         function euler() {
