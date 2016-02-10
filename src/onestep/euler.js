@@ -47,11 +47,11 @@
             return euler;
         };
 
-        euler.diffEq = function(set) {
+        euler.ode = function(set) {
             if (!arguments.length) {
-                return diffEq;
+                return ode;
             }
-            diffEq = set;
+            ode = set;
             return euler;
         };
 

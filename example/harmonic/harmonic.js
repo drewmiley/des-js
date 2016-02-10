@@ -38,13 +38,16 @@
     };
 
     function calculateOnestepEulerSolution(xDomain, h) {
-        // var diffEq = null;
+        // var harmonicEquation = des.util.ode()
+        //     .linear(true)
+        //     .coefficients([1, 0, -1])
+        //     .inhomogeneity(0);
         // var onestepEulerSolver = des.onestep.euler()
         //     .y0(0)
         //     .yDash0(1)
         //     .xDomain(xDomain)
         //     .h(h)
-        //     .diffEq(diffEq);
+        //     .ode(harmonicEquation);
         // var onestepEulerSolution = onestepEulerSolver();
         // return onestepEulerSolution;
         return calculateSinData(xDomain, h);
