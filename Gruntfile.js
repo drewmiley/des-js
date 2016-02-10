@@ -11,7 +11,8 @@ module.exports = function(grunt) {
                 'src/**/*'
             ],
             srcJsFiles: [
-                'src/des.js'
+                'src/des.js',
+                'src/onestep/**/*.js'
             ],
             ourJsFiles: [
                 'Gruntfile.js',
