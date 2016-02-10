@@ -4,14 +4,18 @@
     des.onestep.euler = function() {
 
         function euler() {
-
+        	// do calculation in here
         }
 
         euler.y0 = function(set) {
             if (!arguments.length) {
                 return y0;
             }
-            y0 = set;
+            if (Array.isArray(set)) {
+            	y0 = set;
+        	} else {
+        		y0 = [set];
+        	}
             return euler;
         };
 
@@ -19,7 +23,11 @@
             if (!arguments.length) {
                 return yDash0;
             }
-            yDash0 = set;
+            if (Array.isArray(set)) {
+            	yDash0 = set;
+        	} else {
+        		yDash0 = [set];
+        	}
             return euler;
         };
 
