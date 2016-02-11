@@ -8,7 +8,7 @@
         var xDomain = [0, 1];
         var h = 0.01;
         // Default ODE is y' = 0
-        var ode = des.form.ode()
+        var ode = des.form.linearODE()
             .coefficients([0, 1]);
 
         function euler() {

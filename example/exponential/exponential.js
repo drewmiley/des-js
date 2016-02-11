@@ -38,8 +38,7 @@
     };
 
     function calculateOnestepEulerSolution(xDomain, h) {
-        var expODE = des.form.ode()
-            .linear(true)
+        var expODE = des.form.linearODE()
             .coefficients([-1, 1])
             .inhomogeneity(0);
         var onestepEulerSolver = des.onestep.euler()
