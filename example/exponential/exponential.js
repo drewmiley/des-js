@@ -22,7 +22,7 @@
 
     var gridlines = fc.annotation.gridline();
 
-    // combine uexpg a multi-series
+    // combine using a multi-series
     var multi = fc.series.multi()
       .series([gridlines, line]);
 
@@ -43,7 +43,6 @@
             .inhomogeneity(0);
         var onestepEulerSolver = des.onestep.euler()
             .y0(1)
-            .yDash0(1)
             .xDomain(xDomain)
             .h(h)
             .ode(expODE);

@@ -9,7 +9,7 @@
 
         function linearODE(x, yValues, n) {
             var fX = inhomogeneity.map(function(d) { return d(x); });
-            var arraySum = fX.map(function(d) { return -d; });;
+            var arraySum = fX.map(function(d) { return -d; });
             for (var i = 0; i < yValues.length; i++) {
                 if (i !== n) {
                     arraySum = des.util.arraySum(arraySum,

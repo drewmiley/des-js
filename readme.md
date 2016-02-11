@@ -52,10 +52,6 @@ An implementation of the onestep [Euler](https://en.wikipedia.org/wiki/Euler_met
 
 Get/set the value of *y* at start of *xDomain*.
 
-*.yDash0*
-
-Get/set the value of *y'* at start of *xDomain*.
-
 *.xDomain*
 
 Get/set the start and end values of *x* to solve in the range.

@@ -4,7 +4,6 @@
     des.onestep.euler = function() {
 
         var y0 = [0];
-        var yDash0 = [0];
         var xDomain = [0, 1];
         var h = 0.01;
         // Default ODE is y' = 0
@@ -16,14 +15,14 @@
             var currentY = y0;
             var iterations = (xDomain[1] - xDomain[0]) / h;
 
-            var currentYDash = ode(xDomain[0], [y0, yDash0], 1);
+            var currentYDash = ode(xDomain[0], [y0, undefined], 1);
 
             var nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
             solution.push(des.util.coordinatePair(xDomain[0] + h, nextY));
 
             for (var i = 1; i < iterations; i++) {
                 currentY = nextY;
-                currentYDash = ode(xDomain[0] + i * h, [currentY, currentYDash], 1);
+                currentYDash = ode(xDomain[0] + i * h, [currentY, undefined], 1);
 
                 nextY = des.util.arraySum(currentY, currentYDash.map(function(d) { return d * h; }));
                 solution.push(des.util.coordinatePair(xDomain[0] + (i + 1) * h, nextY));
@@ -39,18 +38,6 @@
                 y0 = set;
             } else {
                 y0 = [set];
-            }
-            return euler;
-        };
-
-        euler.yDash0 = function(set) {
-            if (!arguments.length) {
-                return yDash0;
-            }
-            if (Array.isArray(set)) {
-                yDash0 = set;
-            } else {
-                yDash0 = [set];
             }
             return euler;
         };
