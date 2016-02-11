@@ -28,7 +28,7 @@
 
     function calculateExpData(xDomain, h) {
         var xRange = xDomain[1] - xDomain[0];
-        var expData = d3.range(xRange / h).map(function(d) {
+        var expData = d3.range(1 + xRange / h).map(function(d) {
             return {
                 x: xDomain[0] + h * d,
                 y: Math.exp(xDomain[0] + h * d)
@@ -48,6 +48,24 @@
             .ode(expODE);
         var onestepEulerSolution = onestepEulerSolver();
         return onestepEulerSolution.map(function(iteration) {
+            return {
+                x: iteration.x,
+                y: iteration.y[0]
+            };
+        });
+    };
+
+    function calculateOnestepBackwardEulerSolution(xDomain, h) {
+        var expODE = des.form.linearODE()
+            .coefficients([-1, 1])
+            .inhomogeneity(0);
+        var onestepBackwardEulerSolver = des.onestep.backwardeuler()
+            .y0(1)
+            .xDomain(xDomain)
+            .h(h)
+            .ode(expODE);
+        var onestepBackwardEulerSolution = onestepBackwardEulerSolver();
+        return onestepBackwardEulerSolution.map(function(iteration) {
             return {
                 x: iteration.x,
                 y: iteration.y[0]
@@ -85,9 +103,25 @@
             .call(onestepEulerSolutionChart);
     };
 
+    function renderOnestepBackwardEulerChart(xDomain, h) {
+        var onestepBackwardEulerSolution = calculateOnestepBackwardEulerSolution(xDomain, h);
+        var onestepBackwardEulerSolutionChart = basicChart
+            .chartLabel("Onestep Backwards Euler solution")
+            .xDomain(fc.util.extent().fields("x")(onestepBackwardEulerSolution))
+            .yDomain(fc.util.extent().pad(0.1).fields("y")(onestepBackwardEulerSolution));
+
+        onestepBackwardEulerSolutionChart.plotArea(multi);
+
+        // render
+        d3.select("#onestep-backward-euler-chart")
+            .datum(onestepBackwardEulerSolution)
+            .call(onestepBackwardEulerSolutionChart);
+    };
+
     function render() {
         renderExpChart(xDomain, h);
         renderOnestepEulerChart(xDomain, h);
+        renderOnestepBackwardEulerChart(xDomain, h);
     };
 
     render();

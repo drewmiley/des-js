@@ -36,9 +36,9 @@ Get/set the coefficients that multiply derivatives in the ODE, starting with the
 
 Get/set the *f(x)* inhomogenous part of the ODE.
 
-*function(x, yValues, n)*
+*function(x)*
 
-Returns the value of the *n*th derivative given the value of *x* and *y* (including derivatives) at that point.
+Returns the evaulated value of the inhomogenuity and coefficients at the given *x*.
 
 ### onestep
 
@@ -47,6 +47,10 @@ Onestep methods are used to solve first-order linear ODEs.
 #### *euler*
 
 An implementation of the onestep [Euler](https://en.wikipedia.org/wiki/Euler_method) method is currently in progress.
+
+#### *backwardeuler* ####
+
+An implementation of the onestep [Backward Euler](https://en.wikipedia.org/wiki/Backward_Euler_method) method is currently in progress.
 
 *.y0*
 

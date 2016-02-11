@@ -7,16 +7,16 @@
         var coefficients = [1];
         var inhomogeneity = d3.functor(0);
 
-        function linearODE(x, yValues, n) {
+        function linearODE(x) {
             var fX = inhomogeneity.map(function(d) { return d(x); });
-            var arraySum = fX.map(function(d) { return -d; });
-            for (var i = 0; i < yValues.length; i++) {
-                if (i !== n) {
-                    arraySum = des.util.arraySum(arraySum,
-                        yValues[i].map(function(d) { return d * coefficients[i](x); }));
-                }
+            var yDerivative = [];
+            for (var i = 0; i < coefficients.length; i++) {
+                yDerivative.push(coefficients[i](x));
             }
-            return arraySum.map(function(d) { return -d / coefficients[n](x); });
+            return {
+                fX: fX,
+                yDerivative: yDerivative
+            };
         }
 
         linearODE.coefficients = function(set) {
