@@ -106,7 +106,7 @@
     function renderOnestepBackwardEulerChart(xDomain, h) {
         var onestepBackwardEulerSolution = calculateOnestepBackwardEulerSolution(xDomain, h);
         var onestepBackwardEulerSolutionChart = basicChart
-            .chartLabel("Onestep Backwards Euler solution")
+            .chartLabel("Onestep Backward Euler solution")
             .xDomain(fc.util.extent().fields("x")(onestepBackwardEulerSolution))
             .yDomain(fc.util.extent().pad(0.1).fields("y")(onestepBackwardEulerSolution));
 

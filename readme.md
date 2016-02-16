@@ -4,7 +4,13 @@ des-js is a javascript library containing differential equation solvers; it foll
 
 ## Examples
 
-An example comparing solutions of the exponential equation using onestep methods is currently in progress.
+### To run
+
+To run an example, simply open the relevant **index.html** file in your browser. If there are any problems with this, run **grunt** in the relevant directory in a command window to build the latest version of the source files. 
+
+#### Exponential Equation using Onestep Theta methods
+
+An example comparing solutions of the exponential equation using onestep theta methods is currently in progress.
 
 ## API
 
@@ -26,7 +32,7 @@ Returns an object wrapper around *x* and *y* for ease of plotting the data.
 
 Set the form of the differential equation to be solved.
 
-##### *linearODE*
+#### *linearODE*
 
 *.coefficients*
 
@@ -48,7 +54,7 @@ Onestep methods are used to solve first-order linear ODEs.
 
 An implementation of the onestep [Euler](https://en.wikipedia.org/wiki/Euler_method) method is currently in progress.
 
-#### *backwardeuler* ####
+#### *backwardeuler*
 
 An implementation of the onestep [Backward Euler](https://en.wikipedia.org/wiki/Backward_Euler_method) method is currently in progress.
 
