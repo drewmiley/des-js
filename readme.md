@@ -56,13 +56,13 @@ Returns the evaulated value of the inhomogenuity and coefficients at the given *
 
 Onestep methods are used to solve first-order linear ODEs.
 
-#### *euler*
+#### *theta*
 
-An implementation of the onestep [Euler](https://en.wikipedia.org/wiki/Euler_method) method is currently in progress.
+Theta methods are a family of onestep methods with a variable parameter.
 
-#### *backwardeuler*
+*.parameter*
 
-An implementation of the onestep [Backward Euler](https://en.wikipedia.org/wiki/Backward_Euler_method) method is currently in progress.
+Get/set the parameter for the onestep scheme. There are 3 special values; 0 gives the [Backward Euler](https://en.wikipedia.org/wiki/Backward_Euler_method) scheme, 1 gives the [Euler](https://en.wikipedia.org/wiki/Euler_method) scheme, and 0.5 gives the [Midpoint](https://en.wikipedia.org/wiki/Midpoint_method) scheme. It is initially set to 0.5
 
 *.y0*
 

@@ -24,7 +24,8 @@
     };
 
     function calculateOnestepEulerSolution(xDomain, h) {
-        var onestepEulerSolver = des.onestep.euler()
+        var onestepEulerSolver = des.onestep.theta()
+            .parameter(1)
             .y0(y0)
             .xDomain(xDomain)
             .h(h)
@@ -39,7 +40,8 @@
     };
 
     function calculateOnestepBackwardEulerSolution(xDomain, h) {
-        var onestepBackwardEulerSolver = des.onestep.backwardeuler()
+        var onestepBackwardEulerSolver = des.onestep.theta()
+            .parameter(0)
             .y0(y0)
             .xDomain(xDomain)
             .h(h)
