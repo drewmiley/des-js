@@ -12,7 +12,7 @@
         .coefficients([0, 1])
         .inhomogeneity(function(x) { return 2 * x; });
 
-    function calculateClosedFormData(xDomain, h) {
+    function calculateClosedFormData() {
         var xRange = xDomain[1] - xDomain[0];
         var closedFormData = d3.range(1 + xRange / h).map(function(d) {
             return {
@@ -23,7 +23,7 @@
         return closedFormData;
     };
 
-    function calculateOnestepEulerSolution(xDomain, h) {
+    function calculateOnestepEulerSolution() {
         var onestepEulerSolver = des.onestep.theta()
             .parameter(1)
             .y0(y0)
@@ -39,7 +39,7 @@
         });
     };
 
-    function calculateOnestepBackwardEulerSolution(xDomain, h) {
+    function calculateOnestepBackwardEulerSolution() {
         var onestepBackwardEulerSolver = des.onestep.theta()
             .parameter(0)
             .y0(y0)
@@ -55,7 +55,7 @@
         });
     };
 
-    function calculateOnestepMidpointSolution(xDomain, h) {
+    function calculateOnestepMidpointSolution() {
         var onestepMidpointSolver = des.onestep.theta()
             .y0(y0)
             .xDomain(xDomain)
@@ -70,71 +70,71 @@
         });
     };
 
-    function renderClosedFormChart(xDomain, h) {
-        var closedFormData = calculateClosedFormData(xDomain, h);
+    function renderClosedFormChart() {
+        var closedFormData = calculateClosedFormData();
         var closedFormChart = basicChart
-            .chartLabel("x*x")
-            .xDomain(fc.util.extent().fields("x")(closedFormData))
-            .yDomain(fc.util.extent().pad(0.1).fields("y")(closedFormData));
+            .chartLabel('x*x')
+            .xDomain(fc.util.extent().fields('x')(closedFormData))
+            .yDomain(fc.util.extent().pad(0.1).fields('y')(closedFormData));
 
         closedFormChart.plotArea(multi);
 
         // render
-        d3.select("#closed-form-chart")
+        d3.select('#closed-form-chart')
             .datum(closedFormData)
             .call(closedFormChart);
     };
 
-    function renderOnestepEulerChart(xDomain, h) {
-        var onestepEulerSolution = calculateOnestepEulerSolution(xDomain, h);
+    function renderOnestepEulerChart() {
+        var onestepEulerSolution = calculateOnestepEulerSolution();
         var onestepEulerSolutionChart = basicChart
-            .chartLabel("Onestep Euler solution")
-            .xDomain(fc.util.extent().fields("x")(onestepEulerSolution))
-            .yDomain(fc.util.extent().pad(0.1).fields("y")(onestepEulerSolution));
+            .chartLabel('Onestep Euler solution')
+            .xDomain(fc.util.extent().fields('x')(onestepEulerSolution))
+            .yDomain(fc.util.extent().pad(0.1).fields('y')(onestepEulerSolution));
 
         onestepEulerSolutionChart.plotArea(multi);
 
         // render
-        d3.select("#onestep-euler-chart")
+        d3.select('#onestep-euler-chart')
             .datum(onestepEulerSolution)
             .call(onestepEulerSolutionChart);
     };
 
-    function renderOnestepBackwardEulerChart(xDomain, h) {
-        var onestepBackwardEulerSolution = calculateOnestepBackwardEulerSolution(xDomain, h);
+    function renderOnestepBackwardEulerChart() {
+        var onestepBackwardEulerSolution = calculateOnestepBackwardEulerSolution();
         var onestepBackwardEulerSolutionChart = basicChart
-            .chartLabel("Onestep Backward Euler solution")
-            .xDomain(fc.util.extent().fields("x")(onestepBackwardEulerSolution))
-            .yDomain(fc.util.extent().pad(0.1).fields("y")(onestepBackwardEulerSolution));
+            .chartLabel('Onestep Backward Euler solution')
+            .xDomain(fc.util.extent().fields('x')(onestepBackwardEulerSolution))
+            .yDomain(fc.util.extent().pad(0.1).fields('y')(onestepBackwardEulerSolution));
 
         onestepBackwardEulerSolutionChart.plotArea(multi);
 
         // render
-        d3.select("#onestep-backward-euler-chart")
+        d3.select('#onestep-backward-euler-chart')
             .datum(onestepBackwardEulerSolution)
             .call(onestepBackwardEulerSolutionChart);
     };
 
-    function renderOnestepMidpointChart(xDomain, h) {
-        var onestepMidpointSolution = calculateOnestepMidpointSolution(xDomain, h);
+    function renderOnestepMidpointChart() {
+        var onestepMidpointSolution = calculateOnestepMidpointSolution();
         var onestepMidpointSolutionChart = basicChart
-            .chartLabel("Onestep Midpoint solution")
-            .xDomain(fc.util.extent().fields("x")(onestepMidpointSolution))
-            .yDomain(fc.util.extent().pad(0.1).fields("y")(onestepMidpointSolution));
+            .chartLabel('Onestep Midpoint solution')
+            .xDomain(fc.util.extent().fields('x')(onestepMidpointSolution))
+            .yDomain(fc.util.extent().pad(0.1).fields('y')(onestepMidpointSolution));
 
         onestepMidpointSolutionChart.plotArea(multi);
 
         // render
-        d3.select("#onestep-midpoint-chart")
+        d3.select('#onestep-midpoint-chart')
             .datum(onestepMidpointSolution)
             .call(onestepMidpointSolutionChart);
     };
 
     function render() {
-        renderClosedFormChart(xDomain, h);
-        renderOnestepEulerChart(xDomain, h);
-        renderOnestepBackwardEulerChart(xDomain, h);
-        renderOnestepMidpointChart(xDomain, h);
+        renderClosedFormChart();
+        renderOnestepEulerChart();
+        renderOnestepBackwardEulerChart();
+        renderOnestepMidpointChart();
     };
 
     render();
