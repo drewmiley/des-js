@@ -8,11 +8,17 @@ des-js is a javascript library containing differential equation solvers; it foll
 
 To run an example, simply open the relevant **index.html** file in your browser. If there are any problems with this, run **grunt** in the relevant directory in a command window to build the latest version of the source files. 
 
-#### Exponential Equation using Onestep Theta methods
-
-An example comparing solutions of the exponential equation using onestep theta methods is currently in progress.
-
 ## API
+
+### chart
+
+#### *base*
+
+Basic implementation of d3fc's cartesian chart component for use in examples
+
+#### *multi*
+
+Basic implementation of d3fc's multi component for use in examples
 
 ### util
 

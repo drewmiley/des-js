@@ -3,49 +3,32 @@
 
     var h = 0.01;
     var xDomain = [0, 10];
+    var y0 = 1;
 
-    var basicChart = fc.chart.cartesian(d3.scale.linear(), d3.scale.linear())
-        .yLabel("y")
-        .yNice()
-        .yOrient("left")
-        .xLabel("x")
-        .xBaseline(0)
-        .xNice()
-        .margin({left: 50,
-            top: 30,
-            right: 20,
-            bottom: 30});
-    // create a pair of series and some gridlines
-    var line = fc.series.line()
-      .xValue(function(d) { return d.x; })
-      .yValue(function(d) { return d.y; });
+    var basicChart = des.chart.base()
+    var multi = des.chart.multi();
 
-    var gridlines = fc.annotation.gridline();
+    var expGrowthODE = des.form.linearODE()
+        .coefficients([-1, 1])
+        .inhomogeneity(0);
 
-    // combine using a multi-series
-    var multi = fc.series.multi()
-      .series([gridlines, line]);
-
-    function calculateExpData(xDomain, h) {
+    function calculateClosedFormData(xDomain, h) {
         var xRange = xDomain[1] - xDomain[0];
-        var expData = d3.range(1 + xRange / h).map(function(d) {
+        var closedFormData = d3.range(1 + xRange / h).map(function(d) {
             return {
                 x: xDomain[0] + h * d,
                 y: Math.exp(xDomain[0] + h * d)
             };
         });
-        return expData;
+        return closedFormData;
     };
 
     function calculateOnestepEulerSolution(xDomain, h) {
-        var expODE = des.form.linearODE()
-            .coefficients([-1, 1])
-            .inhomogeneity(0);
         var onestepEulerSolver = des.onestep.euler()
-            .y0(1)
+            .y0(y0)
             .xDomain(xDomain)
             .h(h)
-            .ode(expODE);
+            .ode(expGrowthODE);
         var onestepEulerSolution = onestepEulerSolver();
         return onestepEulerSolution.map(function(iteration) {
             return {
@@ -56,14 +39,11 @@
     };
 
     function calculateOnestepBackwardEulerSolution(xDomain, h) {
-        var expODE = des.form.linearODE()
-            .coefficients([-1, 1])
-            .inhomogeneity(0);
         var onestepBackwardEulerSolver = des.onestep.backwardeuler()
-            .y0(1)
+            .y0(y0)
             .xDomain(xDomain)
             .h(h)
-            .ode(expODE);
+            .ode(expGrowthODE);
         var onestepBackwardEulerSolution = onestepBackwardEulerSolver();
         return onestepBackwardEulerSolution.map(function(iteration) {
             return {
@@ -73,19 +53,19 @@
         });
     };
 
-    function renderExpChart(xDomain, h) {
-        var expData = calculateExpData(xDomain, h);
-        var expChart = basicChart
-            .chartLabel("Exp(x)")
-            .xDomain(fc.util.extent().fields("x")(expData))
-            .yDomain(fc.util.extent().pad(0.1).fields("y")(expData));
+    function renderClosedFormChart(xDomain, h) {
+        var closedFormData = calculateClosedFormData(xDomain, h);
+        var closedFormChart = basicChart
+            .chartLabel("exp(x)")
+            .xDomain(fc.util.extent().fields("x")(closedFormData))
+            .yDomain(fc.util.extent().pad(0.1).fields("y")(closedFormData));
 
-        expChart.plotArea(multi);
+        closedFormChart.plotArea(multi);
 
         // render
-        d3.select("#exp-chart")
-            .datum(expData)
-            .call(expChart);
+        d3.select("#closed-form-chart")
+            .datum(closedFormData)
+            .call(closedFormChart);
     };
 
     function renderOnestepEulerChart(xDomain, h) {
@@ -119,7 +99,7 @@
     };
 
     function render() {
-        renderExpChart(xDomain, h);
+        renderClosedFormChart(xDomain, h);
         renderOnestepEulerChart(xDomain, h);
         renderOnestepBackwardEulerChart(xDomain, h);
     };
