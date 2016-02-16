@@ -55,6 +55,21 @@
         });
     };
 
+    function calculateOnestepMidpointSolution(xDomain, h) {
+        var onestepMidpointSolver = des.onestep.theta()
+            .y0(y0)
+            .xDomain(xDomain)
+            .h(h)
+            .ode(xToMinus1ODE);
+        var onestepMidpointSolution = onestepMidpointSolver();
+        return onestepMidpointSolution.map(function(iteration) {
+            return {
+                x: iteration.x,
+                y: iteration.y[0]
+            };
+        });
+    };
+
     function renderClosedFormChart(xDomain, h) {
         var closedFormData = calculateClosedFormData(xDomain, h);
         var closedFormChart = basicChart
@@ -100,10 +115,26 @@
             .call(onestepBackwardEulerSolutionChart);
     };
 
+    function renderOnestepMidpointChart(xDomain, h) {
+        var onestepMidpointSolution = calculateOnestepMidpointSolution(xDomain, h);
+        var onestepMidpointSolutionChart = basicChart
+            .chartLabel("Onestep Midpoint solution")
+            .xDomain(fc.util.extent().fields("x")(onestepMidpointSolution))
+            .yDomain(fc.util.extent().pad(0.1).fields("y")(onestepMidpointSolution));
+
+        onestepMidpointSolutionChart.plotArea(multi);
+
+        // render
+        d3.select("#onestep-midpoint-chart")
+            .datum(onestepMidpointSolution)
+            .call(onestepMidpointSolutionChart);
+    };
+
     function render() {
         renderClosedFormChart(xDomain, h);
         renderOnestepEulerChart(xDomain, h);
         renderOnestepBackwardEulerChart(xDomain, h);
+        renderOnestepMidpointChart(xDomain, h);
     };
 
     render();
