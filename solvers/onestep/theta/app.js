@@ -47,11 +47,11 @@
     };
 
     function solve() {
-        xDomain = [document.getElementById('input-min-x').value,
-            document.getElementById('input-max-x').value];
-        h = document.getElementById('input-h').value;
-        y0 = document.getElementById('input-y0').value;
-        parameter = document.getElementById('input-theta').value;
+        xDomain = [parseFloat(document.getElementById('input-min-x').value),
+            parseFloat(document.getElementById('input-max-x').value)];
+        h = parseFloat(document.getElementById('input-h').value);
+        y0 = parseFloat(document.getElementById('input-y0').value);
+        parameter = parseFloat(document.getElementById('input-theta').value);
         ode.coefficients([new Function('x', 'return ' + document.getElementById('input-g1X').value),
             new Function('x', 'return ' + document.getElementById('input-g2X').value)])
             .inhomogeneity(new Function('x', 'return ' + document.getElementById('input-fX').value));

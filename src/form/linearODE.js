@@ -36,7 +36,7 @@
 
         linearODE.inhomogeneity = function(set) {
             if (!arguments.length) {
-                return linearODE;
+                return inhomogeneity;
             }
             if (Array.isArray(set)) {
                 inhomogeneity = [];
