@@ -8,7 +8,13 @@
     /* jshint ignore:end */
 
     global.des = {
-        chart: {},
+        chart: {
+            example: {
+                onestep: {
+                    theta: {}
+                }
+            }
+        },
         form: {},
         onestep: {},
         util: {}

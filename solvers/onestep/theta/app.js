@@ -32,11 +32,10 @@
         var onestepThetaSolutionChart = basicChart
             .chartLabel('Onestep Theta=' + parameter + ' solution')
             .xDomain(fc.util.extent().fields('x')(onestepThetaSolution))
-            .yDomain(fc.util.extent().pad(0.1).fields('y')(onestepThetaSolution));
+            .yDomain(fc.util.extent().fields('y')(onestepThetaSolution));
 
         onestepThetaSolutionChart.plotArea(multi);
 
-        // render
         d3.select('#onestep-theta-chart')
             .datum(onestepThetaSolution)
             .call(onestepThetaSolutionChart);

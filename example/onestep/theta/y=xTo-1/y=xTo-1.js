@@ -76,10 +76,8 @@
             .chartLabel('1/x')
             .xDomain(fc.util.extent().fields('x')(closedFormData))
             .yDomain(fc.util.extent().pad(0.1).fields('y')(closedFormData));
-
         closedFormChart.plotArea(multi);
 
-        // render
         d3.select('#closed-form-chart')
             .datum(closedFormData)
             .call(closedFormChart);
@@ -87,14 +85,9 @@
 
     function renderOnestepEulerChart() {
         var onestepEulerSolution = calculateOnestepEulerSolution();
-        var onestepEulerSolutionChart = basicChart
-            .chartLabel('Onestep Euler solution')
-            .xDomain(fc.util.extent().fields('x')(onestepEulerSolution))
-            .yDomain(fc.util.extent().pad(0.1).fields('y')(onestepEulerSolution));
-
+        var onestepEulerSolutionChart = des.chart.example.onestep.theta.euler(onestepEulerSolution);
         onestepEulerSolutionChart.plotArea(multi);
 
-        // render
         d3.select('#onestep-euler-chart')
             .datum(onestepEulerSolution)
             .call(onestepEulerSolutionChart);
@@ -102,14 +95,9 @@
 
     function renderOnestepBackwardEulerChart() {
         var onestepBackwardEulerSolution = calculateOnestepBackwardEulerSolution();
-        var onestepBackwardEulerSolutionChart = basicChart
-            .chartLabel('Onestep Backward Euler solution')
-            .xDomain(fc.util.extent().fields('x')(onestepBackwardEulerSolution))
-            .yDomain(fc.util.extent().pad(0.1).fields('y')(onestepBackwardEulerSolution));
-
+        var onestepBackwardEulerSolutionChart = des.chart.example.onestep.theta.backwardeuler(onestepBackwardEulerSolution);
         onestepBackwardEulerSolutionChart.plotArea(multi);
 
-        // render
         d3.select('#onestep-backward-euler-chart')
             .datum(onestepBackwardEulerSolution)
             .call(onestepBackwardEulerSolutionChart);
@@ -117,14 +105,9 @@
 
     function renderOnestepMidpointChart() {
         var onestepMidpointSolution = calculateOnestepMidpointSolution();
-        var onestepMidpointSolutionChart = basicChart
-            .chartLabel('Onestep Midpoint solution')
-            .xDomain(fc.util.extent().fields('x')(onestepMidpointSolution))
-            .yDomain(fc.util.extent().pad(0.1).fields('y')(onestepMidpointSolution));
-
+        var onestepMidpointSolutionChart = des.chart.example.onestep.theta.midpoint(onestepMidpointSolution);
         onestepMidpointSolutionChart.plotArea(multi);
 
-        // render
         d3.select('#onestep-midpoint-chart')
             .datum(onestepMidpointSolution)
             .call(onestepMidpointSolutionChart);
