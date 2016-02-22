@@ -2,12 +2,6 @@
 
 des-js is a javascript library containing differential equation solvers; it follows the component pattern. 
 
-## Examples / Solvers
-
-### To run
-
-To run an example, simply open the relevant html file in your browser. If there are any problems with this, run **grunt** in the relevant directory in a command window to build the latest version of the source files. 
-
 ## API
 
 ### chart
