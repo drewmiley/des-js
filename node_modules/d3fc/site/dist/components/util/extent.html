@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Extent</title>
+    <meta name="description" content="A collection of components that make it easy to build interactive charts with D3.">
+
+    <script src="https://d3fc.io/scripts.js"></script>
+
+    <link rel="icon" type="image/png" href="https://d3fc.io/images/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="https://d3fc.io/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://d3fc.io/images/favicon-96x96.png" sizes="96x96">
+    <link rel="stylesheet" href="https://d3fc.io/styles.css" />
+    <link rel="canonical" href="https://d3fc.io/components/util/extent.html" />
+  </head>
+  <body>
+    <div class="content">
+
+      <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+              <a href="https://d3fc.io/"><img class="navbar-logo" alt="d3fc" src="https://d3fc.io/images/logo.svg" /></a>
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="https://d3fc.io/components/introduction/getting-started.html">Documentation</a></li>
+                <li class=""><a href="https://d3fc.io/examples">Examples</a></li>
+                <li><a href="https://github.com/ScottLogic/d3fc">GitHub</a></li>
+              </ul>
+            </div>
+        </div>
+      </nav>
+
+      <div class="container component">
+  <div class="row">
+
+    <div class="col-sm-9 col-xs-12">
+      <h1>
+        Extent
+        <a href="https://github.com/ScottLogic/d3fc/blob/master/src/util/extent.js">View source on GitHub</a>
+      </h1>
+      <p> The extent function enhances the functionality of the equivalent D3 extent function, allowing you to pass an array of fields, or accessors, which will be used to derive the extent of the supplied array. For example, if you have an array of items with properties of &#39;high&#39; and &#39;low&#39;, you can use <code>fc.util.extent().fields([&#39;high&#39;, &#39;low&#39;])(data)</code> to compute the extent of your data.</p>
+<pre><code class="lang-js">  var data = [{<span class="hljs-string">low:</span> <span class="hljs-number">10</span>, <span class="hljs-string">high:</span> <span class="hljs-number">30</span>}, {<span class="hljs-string">low:</span> <span class="hljs-number">12</span>, <span class="hljs-string">high:</span> <span class="hljs-number">40</span>}];
+  var fields = [<span class="hljs-string">'high'</span>, <span class="hljs-string">'low'</span>];
+
+  fc.util.extent().fields(fields)(data); <span class="hljs-comment">// [10, 40]</span>
+</code></pre>
+<p>A range can be symmetrical about a given value, using the <code>symmetricalAbout</code> property. Given a range of <code>[0, 5]</code> and specifying symmetry around <code>0</code> will yield a new range of <code>[-5, 5]</code>. This property has the highest precedence, i.e. it is performed before padding and including extra points.</p>
+<pre><code class="lang-js">  fc.util.<span class="hljs-keyword">extent()
+</span>      .fields(fields)
+      .symmetricalAbout(<span class="hljs-number">20</span>)<span class="hljs-comment">; // [0, 40]</span>
+</code></pre>
+<p> The range can be modified by using the <code>pad</code> property, and specifying a &#39;padUnit&#39; to vary the type of padding required. The padUnit can be either &#39;domain&#39; for padding the domain absolutely or &#39;percent&#39; for padding by a percentage. It is set by default to &#39;percent&#39;. Domain padding will increase the calculated range by the amount given. If the calculated range is <code>[10, 20]</code>, with padUnit set to &#39;domain&#39;, then the result of setting pad to &#39;2&#39; will be <code>[8, 22]</code>. <code>pad(0)</code> is an identity in both cases.</p>
+<pre><code class="lang-js">  fc.util.extent()
+      .fields(fields)
+      .padUnit(<span class="hljs-string">'domain'</span>)
+      .pad(<span class="hljs-number">5</span>)(<span class="hljs-built_in">data</span>); <span class="hljs-comment">// [5, 45]</span>
+</code></pre>
+<p> Percentage padding will scale the calculated range by the given amount. If the calculated range is <code>[10, 20]</code>, then the result of setting pad to &#39;1&#39; will be <code>[5, 25]</code>. </p>
+<pre><code class="lang-js">  fc.util.extent()
+      .fields(fields)
+      .padUnit(<span class="hljs-string">'percent'</span>)
+      .pad(<span class="hljs-number">0.5</span>)(<span class="hljs-built_in">data</span>); <span class="hljs-comment">// [2.5, 47.5]</span>
+</code></pre>
+<p> In addition, both padding properties support asymmetric padding.</p>
+<pre><code class="lang-js">  fc.util.extent()
+      .fields(fields)
+      .padUnit(<span class="hljs-string">'domain'</span>)
+      .pad([<span class="hljs-number">3</span>, <span class="hljs-number">5</span>])(data); // [<span class="hljs-number">7</span>, <span class="hljs-number">45</span>]
+  fc.util.extent()
+      .fields(fields)
+      .padUnit(<span class="hljs-string">'percent'</span>)
+      .pad([<span class="hljs-number">0.25</span>, <span class="hljs-number">0.5</span>])(data); // [<span class="hljs-number">2.5</span>, <span class="hljs-number">55</span>]
+</code></pre>
+<p> The range can be extended to include a fixed value, using the <code>include</code> property. The range is extended after padding, so the order of setting the properties is not important. If the included value was already within the range there will be no change.</p>
+<pre><code class="lang-js">  fc.util.<span class="hljs-keyword">extent()
+</span>      .fields(fields)
+      <span class="hljs-meta">.include</span>(<span class="hljs-number">0</span>)(data)<span class="hljs-comment">; // [0, 40]</span>
+  fc.util.<span class="hljs-keyword">extent()
+</span>      .fields(fields)
+      .pad(<span class="hljs-number">0</span>.<span class="hljs-number">5</span>)
+      <span class="hljs-meta">.include</span>(<span class="hljs-number">0</span>)(data)<span class="hljs-comment">; // [0, 47.5]</span>
+</code></pre>
+<p>Extent can also be used on an array of arrays.</p>
+<pre><code class="lang-js">  var data = [[{<span class="hljs-string">low:</span> <span class="hljs-number">2</span>, <span class="hljs-string">high:</span> <span class="hljs-number">5</span>}, {<span class="hljs-string">low:</span> <span class="hljs-number">1</span>, <span class="hljs-string">high:</span> <span class="hljs-number">3</span>}], [{<span class="hljs-string">low:</span> <span class="hljs-number">0</span>, <span class="hljs-string">high:</span> <span class="hljs-number">6</span>}]];
+  fc.util.extent().fields([<span class="hljs-string">'high'</span>, <span class="hljs-string">'low'</span>])(data); <span class="hljs-comment">// [0, 6]</span>
+</code></pre>
+
+      
+      <nav class="visible-xs-block">
+        <ul class="pager">
+            <li class="previous"><a href="/components/tool/crosshair.html"><span aria-hidden="true">&larr;</span> Crosshair</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <nav class="col-sm-3 hidden-xs">
+      <ul class="nav nav-stacked fixed nav-sidebar">
+          <li>
+            <h4>Introduction</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/introduction/getting-started.html">
+                    Getting Started
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/introduction/transitions.html">
+                    Transitions
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/introduction/decorate-pattern.html">
+                    Decorate Pattern
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/introduction/component-design.html">
+                    Component Design
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>Chart</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/chart/cartesian.html">
+                    Cartesian
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/chart/legend.html">
+                    Legend
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/chart/small-multiples.html">
+                    Small Multiples
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/chart/sparkline.html">
+                    Sparkline
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/chart/tooltip.html">
+                    Tooltip
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>Series</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/series/area.html">
+                    Area Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/bar.html">
+                    Bar Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/boxPlot.html">
+                    Box Plot Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/candlestick.html">
+                    Candlestick Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/cycle.html">
+                    Cycle Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/errorBar.html">
+                    Error Bar Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/grouped-bar.html">
+                    Grouped Bar Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/line.html">
+                    Line Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/multi.html">
+                    Multi Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/ohlc.html">
+                    OHLC Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/point.html">
+                    Point Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/stacked.html">
+                    Stacked Series
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/series/waterfall.html">
+                    Waterfall Series
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>Samplers</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/sampler/largestTriangleOne.html">
+                    Largest Triangle 1 Bucket
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/sampler/largestTriangleThreeBucket.html">
+                    Largest Triangle 3 Buckets
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/sampler/modeMedian.html">
+                    Mode Median
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>Annotation</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/annotation/band.html">
+                    Band
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/annotation/gridlines.html">
+                    Gridlines
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/annotation/line.html">
+                    Line
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>Layout</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/layout/flexbox.html">
+                    Flexbox
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/layout/rectangles.html">
+                    Rectangles
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>Data</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/data/coinbase.html">
+                    Coinbase
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/data/financial.html">
+                    Random Financial
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/data/quandl.html">
+                    Quandl
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/data/spread.html">
+                    Spread
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/data/walk.html">
+                    Random Walk
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>Scale</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/scale/dateTime.html">
+                    Date Time Scale
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>Indicator</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/indicator/bollingerBands.html">
+                    Bollinger Bands
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/indicator/elderRay.html">
+                    Elder Ray
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/indicator/envelope.html">
+                    Envelope
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/indicator/exponentialMovingAverage.html">
+                    Exponential Moving Average
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/indicator/forceIndex.html">
+                    Force Index
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/indicator/macd.html">
+                    MACD
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/indicator/movingAverage.html">
+                    Moving Average
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/indicator/relativeStrengthIndicator.html">
+                    Relative Strength Index
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/indicator/stochasticOscillator.html">
+                    Stochastic Oscillator
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>SVG</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/svg/axis.html">
+                    Axis
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>Tool</h4>
+            <ul class="nav nav-stacked">
+                <li class="">
+                  <a href="/components/tool/container.html">
+                    Container
+                  </a>
+                </li>
+                <li class="">
+                  <a href="/components/tool/crosshair.html">
+                    Crosshair
+                  </a>
+                </li>
+            </ul>
+          </li>
+          <li>
+            <h4>Util</h4>
+            <ul class="nav nav-stacked">
+                <li class="active">
+                  <a href="/components/util/extent.html">
+                    Extent
+                  </a>
+                </li>
+            </ul>
+          </li>
+      </ul>
+    </nav>
+
+  </div>
+</div>
+
+
+    </div>
+    <footer>
+      <div class="container">
+        <p class="muted credit text-center">Project supported by <a href="http://www.scottlogic.com">Scott Logic</a>.</p>
+        <p class="muted credit text-center">Browser testing provided by <a class="browserstack" href="https://browserstack.com">BrowserStack</a>.</p>
+      </div>
+    </footer>
+
+  </body>
+</html>
