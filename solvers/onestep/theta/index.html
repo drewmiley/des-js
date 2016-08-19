@@ -6,57 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Onestep Theta</title>
 
-    <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../../node_modules/d3fc/dist/d3fc.min.css">
+    <link rel="stylesheet" href="../../../lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../lib/d3fc.min.css">
 
-    <script src="../../../node_modules/d3fc/node_modules/d3/d3.js"></script>
-    <script src="../../../node_modules/d3fc/node_modules/css-layout/dist/css-layout.js"></script>
-    <script src="../../../node_modules/d3fc/dist/d3fc.js"></script>
+    <script src="../../../lib/d3.min.js"></script>
+    <script src="../../../lib/css-layout.min.js"></script>
+    <script src="../../../lib/d3fc.min.js"></script>
 
     <script src="../../../dist/des-js.js"></script>
 
-    <script src="../../../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../../lib/jquery.min.js"></script>
+    <script src="../../../lib/bootstrap.min.js"></script>
   </head>
   <body>
     <div id="solver-input">
-      <div>
-        Onestep Theta Solver for the ODE g<sub>1</sub>(x)y + g<sub>2</sub>(x)y' = f(x) 
+      <div class="panel">
+        <div class="panel-heading h3">Onestep Theta Solver for the ODE g<sub>1</sub>(x)y + g<sub>2</sub>(x)y' = f(x)</div>
       </div>
-      <div>
-        x<sub>0</sub>
-        <input type="text" id="input-min-x"></input>
+      <div class="panel panel-default col-xs-3 col-sm-2 col-lg-1">
+        <div class="panel-heading">x<sub>0</sub></div>
+        <input type="text" id="input-min-x" class="form-control"></input>
       </div>
-      <div>
-        x<sub>n</sub>
-        <input type="text" id="input-max-x"></input>
+      <div class="panel panel-default col-xs-3 col-sm-2 col-lg-1">
+        <div class="panel-heading">x<sub>n</sub></div>
+        <input type="text" id="input-max-x" class="form-control"></input>
       </div>
-      <div>
-        y<sub>0</sub>
-        <input type="text" id="input-y0"></input>
+      <div class="panel panel-default col-xs-3 col-sm-2 col-lg-1">
+        <div class="panel-heading">y<sub>0</sub></div>
+        <input type="text" id="input-y0" class="form-control"></input>
       </div>
-      <div>
-        h
-        <input type="text" id="input-h"></input>
+      <div class="panel panel-default col-xs-3 col-sm-2 col-lg-1">
+        <div class="panel-heading">h</div>
+        <input type="text" id="input-h" class="form-control"></input>
       </div>
-      <div>
-        theta
-        <input type="text" id="input-theta"></input>
+      <div class="panel panel-default col-xs-3 col-sm-2 col-lg-1">
+        <div class="panel-heading">theta</div>
+        <input type="text" id="input-theta" class="form-control"></input>
       </div>
-      <div>
-        f(x)
-        <input type="text" id="input-fX"></input>
+      <div class="panel panel-default col-xs-3 col-sm-2 col-lg-1">
+        <div class="panel-heading">f(x)</div>
+        <input type="text" id="input-fX" class="form-control"></input>
       </div>
-      <div>
-        g<sub>1</sub>(x)
-        <input type="text" id="input-g1X"></input>
+      <div class="panel panel-default col-xs-3 col-sm-2 col-lg-1">
+        <div class="panel-heading">g<sub>1</sub>(x)</div>
+        <input type="text" id="input-g1X" class="form-control"></input>
       </div>
-      <div>
-        g<sub>2</sub>(x)
-        <input type="text" id="input-g2X"></input>
+      <div class="panel panel-default col-xs-3 col-sm-2 col-lg-1">
+        <div class="panel-heading">g<sub>2</sub>(x)</div>
+        <input type="text" id="input-g2X" class="form-control"></input>
       </div>
-      <div>
-        <button id="solve-button">Solve</button>
+      <div class="panel col-xs-3 col-sm-2 col-lg-1">
+        <button id="solve-button" class="btn btn-primary">Solve</button>
       </div>
     </div>
     <svg id="onestep-theta-chart"></svg>
