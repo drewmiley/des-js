@@ -1,6 +1,14 @@
 # des-js
 
-des-js is a javascript library containing differential equation solvers; it follows the component pattern. 
+des-js is a javascript library containing differential equation solvers; it follows the component pattern.
+
+## Deploying to gh-pages
+
+When redeploying to gh-pages because of new code in the library, there are a couple of steps to follow
+
+1. Run `grunt build` command. This will create a `des-js.js` and `des-js.min.js` file in the dist folder.
+2. Copy this folder, and replace the contents of the dist folder on the gh-pages branch with it.
+3. Commit and push to gh-pages. 
 
 ## API
 
